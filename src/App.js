@@ -1,26 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {connect} from 'react-redux'
+import {BrowserRouter as Router, Route} from "react-router-dom";
+import {compose} from 'recompose';
+import {DEVICES_URL, FILES_URL, HOME_URL, REGISTER_URL} from "./routes";
+import Home from "./components/Home";
+import Devices from "./components/Devices";
+import Files from "./components/Files";
+import LoginForm from "./components/signup/LoginForm";
+import RegisterForm from "./components/signup/RegisterForm";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+
+    render() {
+        return (
+            <>
+                <Router>
+                    <Route exact path={HOME_URL} component={this.props.loggedIn ? Home : LoginForm}/>
+                    <Route path={DEVICES_URL} component={Devices}/>
+                    <Route path={FILES_URL} component={Files}/>
+                    <Route path={REGISTER_URL} component={RegisterForm}/>
+                </Router>
+            </>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        loggedIn: state.user.auth
+    }
+}
+
+export default compose(
+    connect(mapStateToProps)
+)(App);
