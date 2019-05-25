@@ -5,7 +5,6 @@ import {firebaseConfig} from "../../config/firebase";
 class Firebase {
     constructor() {
         app.initializeApp(firebaseConfig);
-
         this.auth = app.auth();
     }
 
@@ -35,6 +34,19 @@ class Firebase {
 
     recoverPassword = (email) =>
         this.auth.sendPasswordResetEmail(email)
+
+    reautenticate = (email, password) => {
+        const credential = app.auth.EmailAuthProvider.credential(
+            email,
+            password
+        );
+
+        return this.auth.currentUser.reauthenticateWithCredential(credential)
+    }
+
+    changePassword = (newPassword) =>
+        this.auth.currentUser.updatePassword(newPassword);
+
 }
 
 export default Firebase;
