@@ -159,3 +159,8 @@ input:focus ~ .highlight {
   overflow: hidden;
   background: transparent;
 }
+
+.navbar-nav {
+    align-items: center;
+    justify-content: center;
+}

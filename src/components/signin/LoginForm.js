@@ -1,14 +1,19 @@
 import React from "react"
-import {REGISTER_URL} from "../../routes";
+import {PASSWORD_RECOVERY_URL, REGISTER_URL} from "../../routes";
 import {Link} from "react-router-dom";
 import withAuthentication from "../auth/withAuthentication";
+import Error from "../alerts/Error"
+
+const INITIAL_STATE = {
+    "email": "",
+    "password": "",
+    "error": null
+}
 
 class LoginForm extends React.Component {
 
     state = {
-        "email": "",
-        "password": "",
-        "error": null
+        ...INITIAL_STATE
     }
 
     handleChange = (e) => {
@@ -23,6 +28,11 @@ class LoginForm extends React.Component {
     onLogin = (e) => {
         e.preventDefault()
         this.props.firebase.loginEmail(this.state.email, this.state.password)
+            .then(() => {
+                this.setState({
+                    ...INITIAL_STATE
+                })
+            })
             .catch(error => {
                 this.setState({error: error.message}
                 );
@@ -57,11 +67,14 @@ class LoginForm extends React.Component {
                     Login
                 </button>
 
-                <div className={this.state.error ? "alert alert-danger text-center" : "d-none"} role="alert">
-                    {this.state.error}
-                </div>
+                <Error error={this.state.error}/>
 
-                <Link to={REGISTER_URL}>Register</Link>
+                <div>
+                    <Link to={REGISTER_URL}>Register</Link>
+                </div>
+                <div>
+                    <Link to={PASSWORD_RECOVERY_URL}>Password recovery</Link>
+                </div>
             </form>
         )
     }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import {withFirebase} from '../firebase';
 import {HOME_URL} from "../../routes";
-import LoginForm from "../signup/LoginForm";
+import LoginForm from "../signin/LoginForm";
 
 const withAuthorization = Component => {
 

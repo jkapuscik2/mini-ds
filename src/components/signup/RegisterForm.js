@@ -1,19 +1,24 @@
 import React from "react"
-import {HOME_URL} from "../../routes";
+import {HOME_URL, PASSWORD_RECOVERY_URL} from "../../routes";
 import {Link} from "react-router-dom";
 import withAuthentication from "../auth/withAuthentication";
+import Error from "../alerts/Error"
 
 const ERROR_MSGS = {
     "SAME_PASSWORDS": "Passwords do not match"
 }
 
+const INITIAL_STATE = {
+    "email": "",
+    "password": "",
+    "passwordRepeat": "",
+    "error": ""
+}
+
 class RegisterForm extends React.Component {
 
     state = {
-        "email": "",
-        "password": "",
-        "passwordRepeat": "",
-        "error": ""
+        ...INITIAL_STATE
     }
 
     handleChange = (e) => {
@@ -30,6 +35,11 @@ class RegisterForm extends React.Component {
 
         if (this.checkData()) {
             this.props.firebase.registerEmail(this.state.email, this.state.password)
+                .then(() => {
+                    this.setState({
+                        ...INITIAL_STATE
+                    })
+                })
                 .catch(error => {
                     this.setState({error: error.message}
                     );
@@ -90,12 +100,14 @@ class RegisterForm extends React.Component {
                     Register
                 </button>
 
+                <Error error={this.state.error}/>
 
-                <div className={this.state.error ? "alert alert-danger text-center" : "d-none"} role="alert">
-                    {this.state.error}
+                <div>
+                    <Link to={HOME_URL}>Login</Link>
                 </div>
-
-                <Link to={HOME_URL}>Login</Link>
+                <div>
+                    <Link to={PASSWORD_RECOVERY_URL}>Password recovery</Link>
+                </div>
             </form>
         )
     }
