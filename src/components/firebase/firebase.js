@@ -18,7 +18,7 @@ class Firebase {
     loginEmail = (email, password) =>
         this.auth.signInWithEmailAndPassword(email, password);
 
-    authUserListener = (login, logout) =>
+    authUserListener = (login, fallback) =>
         this.auth.onAuthStateChanged(authUser => {
             if (authUser) {
                 authUser = {
@@ -30,7 +30,7 @@ class Firebase {
 
                 login(authUser);
             } else {
-                logout();
+                fallback();
             }
         });
 
@@ -61,7 +61,6 @@ class Firebase {
         return this.db.collection('devices')
             .where(app.firestore.FieldPath.documentId(), '==', deviceUid)
             .where('user_uid', '==', userUid)
-            .limit(1)
     }
 
     createDevice = (name, description, userUid) => {
@@ -72,6 +71,20 @@ class Firebase {
             date_created: app.firestore.FieldValue.serverTimestamp(),
             is_updated: false,
             last_update: app.firestore.FieldValue.serverTimestamp()
+        })
+    }
+
+    updateDevice = async (name, description, uid, userUid) => {
+        // This allow to check if userUid is same as current user
+        await this.fetchDevice(uid, userUid).get().then((data) => {
+            if (data.size) {
+                let deviceRef = this.db.collection('devices').doc(uid)
+                return deviceRef.update({
+                    name: name,
+                    description: description,
+                    last_update: app.firestore.FieldValue.serverTimestamp()
+                })
+            }
         })
     }
 }

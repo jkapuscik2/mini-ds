@@ -1,33 +1,60 @@
 import React from "react"
-import {compose} from "recompose";
-import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
 import {HOME_URL} from "../../routes";
 import {Error} from "../alerts";
-import withLoggedInMenu from "../menu/withLoggedInMenu"
 
-const INITIAL_STATE = {
-    name: "",
-    description: "",
-    error: null,
-    success: null
-}
+class DeviceForm extends React.Component {
 
-class AddDeviceForm extends React.Component {
+    constructor(props) {
+        super(props)
 
-    state = {...INITIAL_STATE}
+        this.state = {
+            uid: this.props.device ? this.props.device.uid : "",
+            name: this.props.device ? this.props.device.name : "",
+            description: this.props.device ? this.props.device.description : "",
+            error: null,
+            success: null
+        }
+    }
 
-    onAddNewDevice = (e) => {
+    createDevice = (name, description, userUid) => {
+        return this.props.firebase.createDevice(
+            name,
+            description,
+            userUid)
+    }
+
+    updateDevice = (name, description, uid, userUid) => {
+        return this.props.firebase.updateDevice(
+            name,
+            description,
+            uid,
+            userUid)
+    }
+
+    getAction = () => {
+        return (this.props.isNewRecord)
+            ? this.createDevice(
+                this.state.name,
+                this.state.description,
+                this.props.userUid
+            )
+            : this.updateDevice(
+                this.state.name,
+                this.state.description,
+                this.state.uid,
+                this.props.userUid
+            )
+    }
+
+    onFormSubmit = (e) => {
         e.preventDefault();
 
         this.setState({
             inProgress: true
         })
 
-        this.props.firebase.createDevice(
-            this.state.name,
-            this.state.description,
-            this.props.userUid)
+        this.getAction()
             .then(() => {
                 this.setState({
                     inProgress: false,
@@ -53,8 +80,8 @@ class AddDeviceForm extends React.Component {
 
     render() {
         return !this.state.success ? (
-            <form className='col-12 col-xl-4' onSubmit={this.onAddNewDevice}>
-                <h4 className='text-center mb-4'>Add new device</h4>
+            <form className='col-12 col-xl-4' onSubmit={this.onFormSubmit}>
+                <h4 className='text-center mb-4'>{this.props.isNewRecord ? "Add new device" : "Update device"}</h4>
                 <div className="group">
                     <input onChange={this.handleChange}
                            className={this.state.name ? "used" : ""}
@@ -101,13 +128,5 @@ class AddDeviceForm extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        userUid: state.user.auth.uid
-    }
-}
 
-export default compose(
-    withLoggedInMenu,
-    connect(mapStateToProps)
-)(AddDeviceForm)
+export default DeviceForm

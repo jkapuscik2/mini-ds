@@ -1,6 +1,6 @@
 import React from "react"
 import {Link} from "react-router-dom";
-import {DEVICE_URL} from "../../routes";
+import {DEVICE_URL, UPDATE_DEVICE_URL} from "../../routes";
 
 const MAX_CONTENT_SIZE = 15
 
@@ -18,7 +18,9 @@ const DeviceRow = ({device, idx}) => {
             <td>{displayLimited(device.description)}</td>
             <td>{device.uid}</td>
             <td>
-                <i className="fas fa-pen-alt mr-2"></i>
+                <Link to={`${UPDATE_DEVICE_URL}${device.uid}`}>
+                    <i className="fas fa-pen-alt mr-2"></i>
+                </Link>
                 <Link to={`${DEVICE_URL}${device.uid}`}>
                     <i className="fas fa-eye"></i>
                 </Link>

@@ -5,7 +5,7 @@ import {
     REGISTER_URL,
     PASSWORD_RECOVERY_URL,
     CHANGE_PASSWORD_URL,
-    ADD_DEVICE_URL
+    ADD_DEVICE_URL, UPDATE_DEVICE_URL
 } from "./routes";
 import './App.css';
 import React from 'react';
@@ -17,10 +17,12 @@ import Devices from "./components/devices/Devices";
 import {withFirebase} from "./components/firebase";
 import LoginForm from "./components/signin/LoginForm";
 import RegisterForm from "./components/signup/RegisterForm";
-import AddDeviceForm from "./components/devices/AddDeviceForm";
 import PasswordRecovery from "./components/signin/PasswordRecovery";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import changePasswordForm from "./components/changePassword/changePasswordForm";
+import NotFound from "./components/NoFound";
+import AddDevice from "./components/devices/AddDevice";
+import UpdateDevice from "./components/devices/UpdateDevice";
 
 class App extends React.Component {
 
@@ -30,12 +32,14 @@ class App extends React.Component {
                 <Router>
                     <Switch>
                         <Route exact path={HOME_URL} component={this.props.user ? Devices : LoginForm}/>
-                        <Route path={`${DEVICE_URL}:uid`} component={Device}/>
-                        <Route path={ADD_DEVICE_URL} component={AddDeviceForm}/>
-                        <Route path={FILES_URL} component={Files}/>
-                        <Route path={CHANGE_PASSWORD_URL} component={changePasswordForm}/>
-                        <Route path={REGISTER_URL} component={RegisterForm}/>
-                        <Route path={PASSWORD_RECOVERY_URL} component={PasswordRecovery}/>
+                        <Route exact path={`${DEVICE_URL}:uid`} component={Device}/>
+                        <Route exact path={`${UPDATE_DEVICE_URL}:uid`} component={UpdateDevice}/>
+                        <Route exact path={ADD_DEVICE_URL} component={AddDevice}/>
+                        <Route exact path={FILES_URL} component={Files}/>
+                        <Route exact path={CHANGE_PASSWORD_URL} component={changePasswordForm}/>
+                        <Route exact path={REGISTER_URL} component={RegisterForm}/>
+                        <Route exact path={PASSWORD_RECOVERY_URL} component={PasswordRecovery}/>
+                        <Route component={NotFound}/>
                     </Switch>
                 </Router>
             </>
