@@ -1,3 +1,6 @@
 export const AUTH_USER = "AUTH_USER"
 export const FETCH_DEVICES = "FETCH_DEVICES"
 export const FETCHED_DEVICES = "FETCHED_DEVICES"
+export const FETCH_DEVICE = "FETCH_DEVICE"
+export const FETCHED_DEVICE = "FETCHED_DEVICE"
+export const RESET_DEVICE = "RESET_DEVICE"

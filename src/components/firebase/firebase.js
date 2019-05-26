@@ -52,7 +52,16 @@ class Firebase {
         this.auth.currentUser.updatePassword(newPassword);
 
     fetchDevices = (userUid) => {
-        return this.db.collection('devices').where('user_uid', '==', userUid).orderBy("date_created", "desc")
+        return this.db.collection('devices')
+            .where('user_uid', '==', userUid)
+            .orderBy("date_created", "desc")
+    }
+
+    fetchDevice = (deviceUid, userUid) => {
+        return this.db.collection('devices')
+            .where(app.firestore.FieldPath.documentId(), '==', deviceUid)
+            .where('user_uid', '==', userUid)
+            .limit(1)
     }
 
     createDevice = (name, description, userUid) => {

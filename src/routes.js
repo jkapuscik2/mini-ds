@@ -1,6 +1,6 @@
 export const HOME_URL = "/"
 export const FILES_URL = "/files"
-export const DEVICES_URL = "/devices"
+export const DEVICE_URL = "/device/"
 export const REGISTER_URL = "/register"
 export const ADD_DEVICE_URL = "/add-devices"
 export const CHANGE_PASSWORD_URL = "/change-password"

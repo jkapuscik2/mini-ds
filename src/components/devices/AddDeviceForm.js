@@ -2,7 +2,7 @@ import React from "react"
 import {compose} from "recompose";
 import {connect} from "react-redux";
 import {Link, Redirect} from "react-router-dom";
-import {DEVICES_URL} from "../../routes";
+import {HOME_URL} from "../../routes";
 import {Error} from "../alerts";
 import withLoggedInMenu from "../menu/withLoggedInMenu"
 
@@ -91,13 +91,13 @@ class AddDeviceForm extends React.Component {
 
                 <Error error={this.state.error}/>
 
-                <Link to={DEVICES_URL}>
+                <Link to={HOME_URL}>
                     <button type="button" className="btn-standard button buttonBlue">
                         All devices
                     </button>
                 </Link>
             </form>
-        ) : <Redirect to={DEVICES_URL}/>
+        ) : <Redirect to={HOME_URL}/>
     }
 }
 
