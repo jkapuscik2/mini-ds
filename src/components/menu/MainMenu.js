@@ -40,7 +40,7 @@ class MainMenu extends React.Component {
         return (
             <nav className="navbar navbar-expand navbar-light bg-light">
                 <div className='text-center col-12'>
-                    <img className='img img-responsive col-xl-2 col-4 img-center' src='logo.png'/>
+                    <img className='img img-responsive col-xl-2 col-4 img-center' alt='Logo' src='logo.png'/>
 
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">

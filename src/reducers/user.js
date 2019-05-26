@@ -5,7 +5,6 @@ const INITIAL_STATE = {
 }
 
 const user = (state = INITIAL_STATE, action) => {
-
     switch (action.type) {
         case AUTH_USER: {
             return {
@@ -17,6 +16,5 @@ const user = (state = INITIAL_STATE, action) => {
             return state
     }
 }
-
 
 export default user

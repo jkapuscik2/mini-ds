@@ -164,3 +164,11 @@ input:focus ~ .highlight {
     align-items: center;
     justify-content: center;
 }
+
+.btn-standard {
+  width: auto;
+}
+
+.label-standard {
+  position: relative;
+}

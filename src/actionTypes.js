@@ -1,1 +1,3 @@
 export const AUTH_USER = "AUTH_USER"
+export const FETCH_DEVICES = "FETCH_DEVICES"
+export const FETCHED_DEVICES = "FETCHED_DEVICES"
