@@ -7,3 +7,30 @@ Features:
 - CRUD of files
 - Assigning files to devices
 - API for DS devices
+
+Used validation rules:
+
+Database:
+```
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, update, delete: if request.auth.uid == resource.data.user_uid;
+      allow create: if request.auth.uid != null;
+    }
+  }
+}
+```
+
+Storage
+```
+service firebase.storage {
+  match /b/{bucket}/o {    
+    match /user/{userId}/{allPaths=**} {
+      allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
+```
+
+

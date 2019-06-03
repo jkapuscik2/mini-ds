@@ -11,7 +11,8 @@ class AddDevice extends React.Component {
             <DeviceForm
                 isNewRecord={true}
                 userUid={this.props.userUid}
-                firebase={this.props.firebase}/>
+                firebase={this.props.firebase}
+            />
         )
     }
 }

@@ -29,7 +29,7 @@ class Devices extends React.Component {
                                 <th scope="col">#</th>
                                 <th scope="col">Name</th>
                                 <th scope="col">Description</th>
-                                <th scope="col">Code</th>
+                                <th scope="col">API key</th>
                                 <th scope="col"></th>
                             </tr>
                             </thead>

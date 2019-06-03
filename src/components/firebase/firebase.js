@@ -1,6 +1,7 @@
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
+import 'firebase/storage';
 import app from 'firebase/app';
 import {firebaseConfig} from "../../config/firebase";
 
@@ -9,6 +10,7 @@ class Firebase {
         app.initializeApp(firebaseConfig);
 
         this.db = app.firestore()
+        this.storage = app.storage().ref()
         this.auth = app.auth();
     }
 
@@ -85,6 +87,20 @@ class Firebase {
                     last_update: app.firestore.FieldValue.serverTimestamp()
                 })
             }
+        })
+    }
+
+    addFile = (file, userUid) => {
+        const img = this.storage.child(`/user/${userUid}/${Math.random()}-${file.name}`)
+
+        return img.put(file)
+    }
+
+    saveFileInfo = (userUid, fileUrl, type) => {
+        return this.db.collection('files').add({
+            url: fileUrl,
+            user_uid: userUid,
+            type: type
         })
     }
 }

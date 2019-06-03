@@ -21,12 +21,18 @@ class Device extends React.Component {
         this.props.resetDevice()
     }
 
+    formatDate = (timestamp) => {
+        const date = new Date(timestamp * 1000);
+
+        return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    }
+
     render() {
         return (
             <div className="row justify-content-center mt-5">
                 <div className="card col-10 col-xl-6">
                     <div className="card-body">
-                        <h4 className='text-center mb-4'>Manage your device</h4>
+                        <h4 className='text-center mb-4'>Your device</h4>
 
                         {this.props.inProgress ?
                             <div className="text-center mt-5 mb-5">
@@ -34,8 +40,24 @@ class Device extends React.Component {
                             </div>
                             : this.props.device ?
                                 <div>
-                                    <h5 className="card-title">Name: {this.props.device.name}</h5>
-                                    <p className="card-text">{this.props.device.description}</p>
+                                    <h3 className="card-title card-header">Name: {this.props.device.name}</h3>
+
+                                    <div className="card-body">
+                                        <ul className="list-group ">
+                                            <li className="list-group-item list-group-item-action">
+                                                Create time: {this.formatDate(this.props.device.date_created.seconds)}
+                                            </li>
+                                            <li className="list-group-item list-group-item-action">
+                                                Last update: {this.formatDate(this.props.device.last_update.seconds)}
+                                            </li>
+                                            <li className="list-group-item list-group-item-action">
+                                                API key: {this.props.device.uid}
+                                            </li>
+                                            <li className="list-group-item list-group-item-action">
+                                                Description: {this.props.device.description}
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                                 : ""
                         }

@@ -2,6 +2,7 @@ import React from "react"
 import {Link, Redirect} from "react-router-dom";
 import {HOME_URL} from "../../routes";
 import {Error} from "../alerts";
+import Loader from "../Loader";
 
 class DeviceForm extends React.Component {
 
@@ -111,8 +112,7 @@ class DeviceForm extends React.Component {
 
                 <button type="submit" className="button buttonBlue" disabled={this.state.inProgress}>
                     {this.state.inProgress
-                        ?
-                        <span className="spinner-border spinner-border-sm mr-3" role="status" aria-hidden="true"></span>
+                        ? <Loader/>
                         : "Submit"}
                 </button>
 

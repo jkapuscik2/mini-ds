@@ -11,7 +11,7 @@ import './App.css';
 import React from 'react';
 import {compose} from 'recompose'
 import {connect} from "react-redux"
-import Files from "./components/Files";
+import Files from "./components/files/Files";
 import Device from "./components/devices/Device";
 import Devices from "./components/devices/Devices";
 import {withFirebase} from "./components/firebase";
