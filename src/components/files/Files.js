@@ -4,9 +4,10 @@ import Loader from "../Loader";
 import {compose} from "recompose";
 import {withFirebase} from "../firebase";
 import {connect} from "react-redux";
-import {addFile} from "../../actions/fileActions";
+import {addFile, resetFile} from "../../actions/fileActions";
 import ProgressBar from "../ProgressBar";
 import {Error, Success} from "../alerts";
+import FilesList from "./FilesList";
 
 class Files extends React.Component {
 
@@ -25,9 +26,13 @@ class Files extends React.Component {
         this.form.reset()
     }
 
+    componentWillUnmount() {
+        this.props.resetFile()
+    }
+
     render() {
         return (
-            <div className="row justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-5">
                 <div className="card col-10 col-xl-6">
                     <div className="card-body">
                         <h4 className='text-center mb-4'>Your files</h4>
@@ -61,6 +66,8 @@ class Files extends React.Component {
                                 : ""
                             }
                         </form>
+
+                        <FilesList/>
                     </div>
                 </div>
             </div>
@@ -80,7 +87,8 @@ const mapStateToProps = (state) => {
 
 const mapActionToDispatch = (dispatch) => {
     return {
-        addFile: (file, userUid, fbInstance) => dispatch(addFile(file, userUid, fbInstance))
+        addFile: (file, userUid, fbInstance) => dispatch(addFile(file, userUid, fbInstance)),
+        resetFile: () => dispatch(resetFile())
     }
 }
 

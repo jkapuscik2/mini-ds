@@ -13,7 +13,6 @@ class Device extends React.Component {
     componentWillMount() {
         this.props.onFetchDevice(
             this.props.match.params.uid,
-            this.props.userUid,
             this.props.firebase)
     }
 
@@ -56,6 +55,9 @@ class Device extends React.Component {
                                             <li className="list-group-item list-group-item-action">
                                                 Description: {this.props.device.description}
                                             </li>
+                                            <li className="list-group-item list-group-item-action">
+                                                Device up to date: {this.props.device.is_updated ? "No" : "Yes"}
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -97,8 +99,8 @@ const mapStateToProps = (state) => {
 
 const mapActionToDispatch = (dispatch) => {
     return {
-        onFetchDevice: (deviceUid, userUid, fbInstance) =>
-            dispatch(fetchDevice(deviceUid, userUid, fbInstance)),
+        onFetchDevice: (deviceUid, fbInstance) =>
+            dispatch(fetchDevice(deviceUid, fbInstance)),
         resetDevice: () => dispatch(resetDevice())
     }
 }

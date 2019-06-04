@@ -5,7 +5,11 @@ import 'firebase/storage';
 import app from 'firebase/app';
 import {firebaseConfig} from "../../config/firebase";
 
+const DEVICES_COLLECTION = 'devices'
+const FILES_COLLECTION = 'files'
+
 class Firebase {
+
     constructor() {
         app.initializeApp(firebaseConfig);
 
@@ -54,40 +58,37 @@ class Firebase {
         this.auth.currentUser.updatePassword(newPassword);
 
     fetchDevices = (userUid) => {
-        return this.db.collection('devices')
+        return this.db.collection(DEVICES_COLLECTION)
             .where('user_uid', '==', userUid)
             .orderBy("date_created", "desc")
     }
 
-    fetchDevice = (deviceUid, userUid) => {
+    fetchDevice = (deviceUid) => {
         return this.db.collection('devices')
             .where(app.firestore.FieldPath.documentId(), '==', deviceUid)
-            .where('user_uid', '==', userUid)
     }
 
     createDevice = (name, description, userUid) => {
-        return this.db.collection('devices').add({
+        return this.db.collection(DEVICES_COLLECTION).add({
             name: name,
             description: description,
             user_uid: userUid,
             date_created: app.firestore.FieldValue.serverTimestamp(),
-            is_updated: false,
+            is_updated: true,
             last_update: app.firestore.FieldValue.serverTimestamp()
         })
     }
 
-    updateDevice = async (name, description, uid, userUid) => {
-        // This allow to check if userUid is same as current user
-        await this.fetchDevice(uid, userUid).get().then((data) => {
-            if (data.size) {
-                let deviceRef = this.db.collection('devices').doc(uid)
-                return deviceRef.update({
-                    name: name,
-                    description: description,
-                    last_update: app.firestore.FieldValue.serverTimestamp()
-                })
-            }
+    updateDevice = async (name, description, uid) => {
+        return this.db.collection(DEVICES_COLLECTION).doc(uid).update({
+            name: name,
+            description: description,
+            last_update: app.firestore.FieldValue.serverTimestamp()
         })
+    }
+
+    removeDevice = (device) => {
+        return this.db.collection(DEVICES_COLLECTION).doc(device.uid).delete()
     }
 
     addFile = (file, userUid) => {
@@ -97,12 +98,20 @@ class Firebase {
     }
 
     saveFileInfo = (userUid, fileUrl, type) => {
-        return this.db.collection('files').add({
+        return this.db.collection(FILES_COLLECTION).add({
             url: fileUrl,
             user_uid: userUid,
-            type: type
+            type: type,
+            date_created: app.firestore.FieldValue.serverTimestamp()
         })
     }
+
+    fetchFiles = (userUid) => {
+        return this.db.collection(FILES_COLLECTION)
+            .where('user_uid', '==', userUid)
+            .orderBy("date_created", "desc")
+    }
+
 }
 
 export default Firebase;

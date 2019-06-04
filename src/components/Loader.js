@@ -1,8 +1,12 @@
 import React from "react";
 
-const Loader = () => {
+const Loader = ({size = "1rem"}) => {
     return (
-        <span className="spinner-border spinner-border-sm mr-3 ml-3" role="status" aria-hidden="true"></span>
+        <span className='spinner-border spinner-border mr-3 ml-3'
+              role="status"
+              aria-hidden="true"
+              style={{height: size, width: size}}
+        ></span>
     )
 }
 

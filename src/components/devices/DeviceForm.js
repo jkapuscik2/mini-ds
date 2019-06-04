@@ -25,12 +25,11 @@ class DeviceForm extends React.Component {
             userUid)
     }
 
-    updateDevice = (name, description, uid, userUid) => {
+    updateDevice = (name, description, uid) => {
         return this.props.firebase.updateDevice(
             name,
             description,
-            uid,
-            userUid)
+            uid)
     }
 
     getAction = () => {
@@ -43,8 +42,7 @@ class DeviceForm extends React.Component {
             : this.updateDevice(
                 this.state.name,
                 this.state.description,
-                this.state.uid,
-                this.props.userUid
+                this.state.uid
             )
     }
 

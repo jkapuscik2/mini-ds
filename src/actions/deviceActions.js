@@ -2,13 +2,13 @@ import {FETCH_DEVICE, FETCHED_DEVICE, RESET_DEVICE} from "../actionTypes";
 
 const NO_DEVICE_ERROR_MSG = "Device not found"
 
-export const fetchDevice = (deviceUid = "", userUid, fbInstance) => {
+export const fetchDevice = (deviceUid = "", fbInstance) => {
     return (dispatch) => {
         dispatch({
             type: FETCH_DEVICE
         })
 
-        fbInstance.fetchDevice(deviceUid, userUid, fbInstance).get()
+        fbInstance.fetchDevice(deviceUid, fbInstance).get()
             .then((devices) => {
                 if (devices.size) {
                     const data = {...devices.docs[0].data(), uid: deviceUid}

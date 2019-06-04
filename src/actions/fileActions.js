@@ -1,8 +1,16 @@
-import {ADD_FILE} from "../actionTypes";
+import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE} from "../actionTypes";
+
+const formatBytes = (bytes) => {
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i))) + ' ' + sizes[i];
+}
 
 const ALLOWED_FILE_TYPE = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4', 'video/webm']
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
-const VALIDATION_ERROR = `Wrong file type. Only following files are accepted: ${ALLOWED_FILE_TYPE.map((type) => (type))}`
+const VALIDATION_ERROR = `Wrong file type. Only files under ${formatBytes(MAX_FILE_SIZE)} are accepted and of following types: ${ALLOWED_FILE_TYPE.map((type) => (type))}`
 const SUCCESS_MSG = "File was uploaded correctly"
 
 const validate = (type, size) => {
@@ -13,30 +21,22 @@ export const addFile = (file, userUid, fbInstance) => {
     return (dispatch) => {
         if (validate(file.type, file.size)) {
             dispatch({
-                type: ADD_FILE,
-                payload: {
-                    inProgress: true,
-                    progress: 0,
-                    error: null
-                }
+                type: ADD_FILE
             })
 
             const uploadTask = fbInstance.addFile(file, userUid)
 
             uploadTask.on('state_changed', function (snapshot) {
                 dispatch({
-                    type: ADD_FILE,
+                    type: ADDING_FILE,
                     payload: {
-                        inProgress: true,
                         progress: (snapshot.bytesTransferred / snapshot.totalBytes) * 100,
-                        error: null
                     }
                 })
             }, (error) => {
                 dispatch({
-                    type: ADD_FILE,
+                    type: ADDED_FILE,
                     payload: {
-                        inProgress: false,
                         error: error.message
                     }
                 })
@@ -44,19 +44,15 @@ export const addFile = (file, userUid, fbInstance) => {
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                     fbInstance.saveFileInfo(userUid, downloadURL, file.type).then(() => {
                         dispatch({
-                            type: ADD_FILE,
+                            type: ADDED_FILE,
                             payload: {
-                                inProgress: false,
-                                progress: 0,
-                                error: null,
                                 success: SUCCESS_MSG
                             }
                         })
                     }).catch((error) => {
                         dispatch({
-                            type: ADD_FILE,
+                            type: ADDED_FILE,
                             payload: {
-                                inProgress: false,
                                 error: error.message
                             }
                         })
@@ -65,13 +61,17 @@ export const addFile = (file, userUid, fbInstance) => {
             });
         } else {
             dispatch({
-                type: ADD_FILE,
+                type: ADDED_FILE,
                 payload: {
-                    inProgress: false,
-                    progress: 0,
                     error: VALIDATION_ERROR
                 }
             })
         }
+    }
+}
+
+export const resetFile = () => {
+    return {
+        type: RESET_FILE
     }
 }

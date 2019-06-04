@@ -8,7 +8,9 @@ Features:
 - Assigning files to devices
 - API for DS devices
 
-Used validation rules:
+Idea was to learn and use some Redux
+
+Used Firebase validation rules:
 
 Database:
 ```

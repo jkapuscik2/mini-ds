@@ -7,6 +7,8 @@ import {withFirebase} from "../firebase";
 import {connect} from "react-redux";
 import {fetchDevices} from "../../actions/devicesActions"
 import DeviceRow from "./DeviceRow";
+import Loader from "../Loader";
+import {Error} from "../alerts";
 
 class Devices extends React.Component {
 
@@ -18,8 +20,8 @@ class Devices extends React.Component {
 
     render() {
         return (
-            <div className="row justify-content-center mt-5">
-                <div className="card col-10 col-xl-6">
+            <div className="justify-content-center  d-flex mt-5">
+                <div className=" card col-10 col-xl-6">
                     <div className="card-body">
                         <h4 className='text-center mb-4'>Your devices</h4>
 
@@ -43,13 +45,12 @@ class Devices extends React.Component {
                         </table>
                         {this.props.inProgress ?
                             <div className="text-center mt-5 mb-5">
-                                <div className="spinner-border" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
+                                <Loader size={'2rem'}/>
                             </div>
                             : ""
                         }
 
+                        <Error error={this.props.error}/>
                         <Link to={ADD_DEVICE_URL}>
                             <button type="button" className="btn-standard button buttonBlue">
                                 Add new device

@@ -1,7 +1,15 @@
 export const AUTH_USER = "AUTH_USER"
+
 export const FETCH_DEVICES = "FETCH_DEVICES"
 export const FETCHED_DEVICES = "FETCHED_DEVICES"
 export const FETCH_DEVICE = "FETCH_DEVICE"
 export const FETCHED_DEVICE = "FETCHED_DEVICE"
 export const RESET_DEVICE = "RESET_DEVICE"
+export const REMOVED_DEVICE = "REMOVE_DEVICE"
+
+export const FETCH_FILES = "FETCH_FILES"
+export const FETCHED_FILES = "FETCHED_FILES"
 export const ADD_FILE = "ADD_FILE"
+export const ADDING_FILE = "ADDING_FILE"
+export const ADDED_FILE = "ADDED_FILE"
+export const RESET_FILE = "RESET_FILE"
