@@ -98,11 +98,12 @@ class Firebase {
         return img.put(file)
     }
 
-    saveFileInfo = (fileUrl, type) => {
+    saveFileInfo = (fileUrl, path, type) => {
         return this.db.collection(FILES_COLLECTION).add({
             url: fileUrl,
             user_uid: this.auth.currentUser.uid,
             type: type,
+            path: path,
             date_created: app.firestore.FieldValue.serverTimestamp()
         })
     }
@@ -111,6 +112,14 @@ class Firebase {
         return this.db.collection(FILES_COLLECTION)
             .where('user_uid', '==', this.auth.currentUser.uid)
             .orderBy("date_created", "desc")
+    }
+
+    removeFileRef = (fileUid) => {
+        return this.db.collection(FILES_COLLECTION).doc(fileUid).delete()
+    }
+
+    removeFile = (path) => {
+        return this.storage.child(path).delete()
     }
 
 }

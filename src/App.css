@@ -172,3 +172,13 @@ input:focus ~ .highlight {
 .label-standard {
   position: relative;
 }
+
+.remove-file {
+  position: absolute;
+  top: 5%;
+  right: 10%;
+  background-color: gainsboro;
+  padding: 0.8rem;
+  border-radius: 50%;
+  z-index: 9;
+}

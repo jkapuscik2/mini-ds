@@ -1,4 +1,4 @@
-import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE} from "../actionTypes";
+import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE, REMOVED_FILE} from "../actionTypes";
 
 const formatBytes = (bytes) => {
     const k = 1024;
@@ -42,7 +42,7 @@ export const addFile = (file, fbInstance) => {
                 })
             }, () => {
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    fbInstance.saveFileInfo(downloadURL, file.type).then(() => {
+                    fbInstance.saveFileInfo(downloadURL, uploadTask.snapshot.ref.fullPath, file.type).then(() => {
                         dispatch({
                             type: ADDED_FILE,
                             payload: {
@@ -73,5 +73,36 @@ export const addFile = (file, fbInstance) => {
 export const resetFile = () => {
     return {
         type: RESET_FILE
+    }
+}
+
+const REMOVE_SUCCESS_MSG = "File was removed"
+
+export const removeFile = (file, fbInstance) => {
+    return (dispatch) => {
+        fbInstance.removeFileRef(file.uid).then(() => {
+            fbInstance.removeFile(file.path).then(() => {
+                dispatch({
+                    type: REMOVED_FILE,
+                    payload: {
+                        error: null,
+                        success: REMOVE_SUCCESS_MSG
+                    }
+                })
+            }).catch((error) => {
+                dispatch(errorMsg(error.message))
+            })
+        }).catch((error) => {
+            dispatch(errorMsg(error.message))
+        })
+    }
+}
+
+const errorMsg = (message) => {
+    return {
+        type: REMOVED_FILE,
+        payload: {
+            error: message
+        }
     }
 }

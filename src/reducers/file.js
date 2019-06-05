@@ -1,4 +1,4 @@
-import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE} from "../actionTypes"
+import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE, REMOVED_FILE} from "../actionTypes"
 
 const INITIAL_STATE = {
     inProgress: false,
@@ -37,6 +37,14 @@ const file = (state = INITIAL_STATE, action) => {
             return {
                 ...state,
                 ...INITIAL_STATE
+            }
+        }
+        case REMOVED_FILE: {
+            return {
+                ...state,
+                inProgress: false,
+                success: action.payload.success,
+                error: action.payload.error
             }
         }
         default:
