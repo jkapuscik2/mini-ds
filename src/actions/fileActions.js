@@ -17,14 +17,14 @@ const validate = (type, size) => {
     return ALLOWED_FILE_TYPE.includes(type) && size < MAX_FILE_SIZE;
 }
 
-export const addFile = (file, userUid, fbInstance) => {
+export const addFile = (file, fbInstance) => {
     return (dispatch) => {
         if (validate(file.type, file.size)) {
             dispatch({
                 type: ADD_FILE
             })
 
-            const uploadTask = fbInstance.addFile(file, userUid)
+            const uploadTask = fbInstance.addFile(file)
 
             uploadTask.on('state_changed', function (snapshot) {
                 dispatch({
@@ -42,7 +42,7 @@ export const addFile = (file, userUid, fbInstance) => {
                 })
             }, () => {
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    fbInstance.saveFileInfo(userUid, downloadURL, file.type).then(() => {
+                    fbInstance.saveFileInfo(downloadURL, file.type).then(() => {
                         dispatch({
                             type: ADDED_FILE,
                             payload: {

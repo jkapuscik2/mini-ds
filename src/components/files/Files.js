@@ -22,7 +22,7 @@ class Files extends React.Component {
     addFile = (e) => {
         e.preventDefault()
 
-        this.props.addFile(this.file.files[0], this.props.userUid, this.props.firebase)
+        this.props.addFile(this.file.files[0], this.props.firebase)
         this.form.reset()
     }
 
@@ -80,14 +80,13 @@ const mapStateToProps = (state) => {
         inProgress: state.file.inProgress,
         progress: state.file.progress,
         error: state.file.error,
-        userUid: state.user.auth.uid,
         success: state.file.success
     }
 }
 
 const mapActionToDispatch = (dispatch) => {
     return {
-        addFile: (file, userUid, fbInstance) => dispatch(addFile(file, userUid, fbInstance)),
+        addFile: (file, fbInstance) => dispatch(addFile(file, fbInstance)),
         resetFile: () => dispatch(resetFile())
     }
 }

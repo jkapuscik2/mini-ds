@@ -9,7 +9,7 @@ import FileItem from "./FileItem";
 class FilesList extends React.Component {
 
     componentDidMount() {
-        this.props.fetchFiles(this.props.userUid, this.props.firebase)
+        this.props.fetchFiles(this.props.firebase)
     }
 
     render() {
@@ -36,14 +36,13 @@ const mapStateToProps = (state) => {
     return {
         items: state.files.items,
         inProgress: state.files.inProgress,
-        error: state.files.error,
-        userUid: state.user.auth.uid
+        error: state.files.error
     }
 }
 
 const mapActionsToDispatch = (dispatch) => {
     return {
-        fetchFiles: (userUid, fbInstance) => dispatch(fetchFiles(userUid, fbInstance))
+        fetchFiles: (fbInstance) => dispatch(fetchFiles(fbInstance))
     }
 }
 

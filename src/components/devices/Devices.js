@@ -13,9 +13,7 @@ import {Error} from "../alerts";
 class Devices extends React.Component {
 
     componentDidMount() {
-        this.props.onFetchDevices(
-            this.props.userUid,
-            this.props.firebase)
+        this.props.onFetchDevices(this.props.firebase)
     }
 
     render() {
@@ -65,7 +63,6 @@ class Devices extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        userUid: state.user.auth.uid,
         items: state.devices.items,
         error: state.devices.error,
         inProgress: state.devices.inProgress
@@ -74,8 +71,8 @@ const mapStateToProps = (state) => {
 
 const mapActionToDispatch = (dispatch) => {
     return {
-        onFetchDevices: (userUid, fbInstance) =>
-            dispatch(fetchDevices(userUid, fbInstance)),
+        onFetchDevices: (fbInstance) =>
+            dispatch(fetchDevices(fbInstance)),
     }
 }
 export default compose(

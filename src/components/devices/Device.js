@@ -92,8 +92,7 @@ const mapStateToProps = (state) => {
     return {
         inProgress: state.device.inProgress,
         device: state.device.data,
-        error: state.device.error,
-        userUid: state.user.auth.uid
+        error: state.device.error
     }
 }
 

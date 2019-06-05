@@ -18,11 +18,10 @@ class DeviceForm extends React.Component {
         }
     }
 
-    createDevice = (name, description, userUid) => {
+    createDevice = (name, description) => {
         return this.props.firebase.createDevice(
             name,
-            description,
-            userUid)
+            description)
     }
 
     updateDevice = (name, description, uid) => {
@@ -36,8 +35,7 @@ class DeviceForm extends React.Component {
         return (this.props.isNewRecord)
             ? this.createDevice(
                 this.state.name,
-                this.state.description,
-                this.props.userUid
+                this.state.description
             )
             : this.updateDevice(
                 this.state.name,

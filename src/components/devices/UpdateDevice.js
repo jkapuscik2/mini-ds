@@ -21,7 +21,6 @@ class UpdateDevice extends React.Component {
                     <div className="spinner-border" role="status"></div>
                 </div>
                 : <DeviceForm
-                    userUid={this.props.userUid}
                     isNewRecord={false}
                     firebase={this.props.firebase}
                     device={this.props.device}/>
@@ -33,8 +32,7 @@ const mapStateToProps = (state) => {
     return {
         inProgress: state.device.inProgress,
         device: state.device.data,
-        error: state.device.error,
-        userUid: state.user.auth.uid
+        error: state.device.error
     }
 }
 

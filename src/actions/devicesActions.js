@@ -1,12 +1,12 @@
 import {FETCH_DEVICES, FETCHED_DEVICES, REMOVED_DEVICE} from "../actionTypes";
 
-export const fetchDevices = (userUid, fbInstance) => {
+export const fetchDevices = (fbInstance) => {
     return (dispatch) => {
         dispatch({
             type: FETCH_DEVICES
         })
 
-        fbInstance.fetchDevices(userUid, fbInstance).onSnapshot(snapshot => {
+        fbInstance.fetchDevices(fbInstance).onSnapshot(snapshot => {
                 if (snapshot.size) {
                     let items = [];
                     snapshot.forEach(doc =>

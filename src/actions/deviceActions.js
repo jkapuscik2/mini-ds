@@ -3,6 +3,7 @@ import {FETCH_DEVICE, FETCHED_DEVICE, RESET_DEVICE} from "../actionTypes";
 const NO_DEVICE_ERROR_MSG = "Device not found"
 
 export const fetchDevice = (deviceUid = "", fbInstance) => {
+
     return (dispatch) => {
         dispatch({
             type: FETCH_DEVICE

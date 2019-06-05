@@ -26,6 +26,7 @@ class Firebase {
 
     authUserListener = (login, fallback) =>
         this.auth.onAuthStateChanged(authUser => {
+
             if (authUser) {
                 authUser = {
                     uid: authUser.uid,
@@ -57,9 +58,9 @@ class Firebase {
     changePassword = (newPassword) =>
         this.auth.currentUser.updatePassword(newPassword);
 
-    fetchDevices = (userUid) => {
+    fetchDevices = () => {
         return this.db.collection(DEVICES_COLLECTION)
-            .where('user_uid', '==', userUid)
+            .where('user_uid', '==', this.auth.currentUser.uid)
             .orderBy("date_created", "desc")
     }
 
@@ -68,11 +69,11 @@ class Firebase {
             .where(app.firestore.FieldPath.documentId(), '==', deviceUid)
     }
 
-    createDevice = (name, description, userUid) => {
+    createDevice = (name, description) => {
         return this.db.collection(DEVICES_COLLECTION).add({
             name: name,
             description: description,
-            user_uid: userUid,
+            user_uid: this.auth.currentUser.uid,
             date_created: app.firestore.FieldValue.serverTimestamp(),
             is_updated: true,
             last_update: app.firestore.FieldValue.serverTimestamp()
@@ -91,24 +92,24 @@ class Firebase {
         return this.db.collection(DEVICES_COLLECTION).doc(device.uid).delete()
     }
 
-    addFile = (file, userUid) => {
-        const img = this.storage.child(`/user/${userUid}/${Math.random()}-${file.name}`)
+    addFile = (file) => {
+        const img = this.storage.child(`/user/${this.auth.currentUser.uid}/${Math.random()}-${file.name}`)
 
         return img.put(file)
     }
 
-    saveFileInfo = (userUid, fileUrl, type) => {
+    saveFileInfo = (fileUrl, type) => {
         return this.db.collection(FILES_COLLECTION).add({
             url: fileUrl,
-            user_uid: userUid,
+            user_uid: this.auth.currentUser.uid,
             type: type,
             date_created: app.firestore.FieldValue.serverTimestamp()
         })
     }
 
-    fetchFiles = (userUid) => {
+    fetchFiles = () => {
         return this.db.collection(FILES_COLLECTION)
-            .where('user_uid', '==', userUid)
+            .where('user_uid', '==', this.auth.currentUser.uid)
             .orderBy("date_created", "desc")
     }
 
