@@ -3,6 +3,7 @@ import {Link, Redirect} from "react-router-dom";
 import {HOME_URL} from "../../routes";
 import {Error} from "../alerts";
 import Loader from "../Loader";
+import FilesCarusel from "../files/FilesCarusel";
 
 class DeviceForm extends React.Component {
 
@@ -10,38 +11,36 @@ class DeviceForm extends React.Component {
         super(props)
 
         this.state = {
-            uid: this.props.device ? this.props.device.uid : "",
+            uid: this.props.device ? this.props.device.uid : null,
             name: this.props.device ? this.props.device.name : "",
             description: this.props.device ? this.props.device.description : "",
+            file: this.props.device ? this.props.device.file : null,
             error: null,
             success: null
         }
     }
 
-    createDevice = (name, description) => {
+    createDevice = () => {
         return this.props.firebase.createDevice(
-            name,
-            description)
+            this.state.name,
+            this.state.description,
+            this.state.file
+        )
     }
 
-    updateDevice = (name, description, uid) => {
+    updateDevice = () => {
         return this.props.firebase.updateDevice(
-            name,
-            description,
-            uid)
+            this.state.name,
+            this.state.description,
+            this.state.uid,
+            this.state.file
+        )
     }
 
     getAction = () => {
         return (this.props.isNewRecord)
-            ? this.createDevice(
-                this.state.name,
-                this.state.description
-            )
-            : this.updateDevice(
-                this.state.name,
-                this.state.description,
-                this.state.uid
-            )
+            ? this.createDevice()
+            : this.updateDevice()
     }
 
     onFormSubmit = (e) => {
@@ -75,6 +74,12 @@ class DeviceForm extends React.Component {
         });
     }
 
+    onFileChange = (file) => {
+        this.setState({
+            file: file
+        })
+    }
+
     render() {
         return !this.state.success ? (
             <form className='col-12 col-xl-4' onSubmit={this.onFormSubmit}>
@@ -105,6 +110,10 @@ class DeviceForm extends React.Component {
                         value={this.state.description}
                     />
                 </div>
+
+                <h5 className='text-center'>Pick a file</h5>
+
+                <FilesCarusel file={this.state.file} onFileChange={this.onFileChange}/>
 
                 <button type="submit" className="button buttonBlue" disabled={this.state.inProgress}>
                     {this.state.inProgress

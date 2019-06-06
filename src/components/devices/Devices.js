@@ -18,9 +18,9 @@ class Devices extends React.Component {
 
     render() {
         return (
-            <div className="justify-content-center  d-flex mt-5">
+            <div className="justify-content-center d-flex mt-5 mb-5">
                 <div className=" card col-10 col-xl-6">
-                    <div className="card-body">
+                    <div className="card-body table-responsive">
                         <h4 className='text-center mb-4'>Your devices</h4>
 
                         <table className="table table-hover text-center">

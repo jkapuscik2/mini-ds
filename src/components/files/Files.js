@@ -32,7 +32,7 @@ class Files extends React.Component {
 
     render() {
         return (
-            <div className="d-flex justify-content-center mt-5">
+            <div className="d-flex justify-content-center mt-5 mb-5">
                 <div className="card col-10 col-xl-6">
                     <div className="card-body">
                         <h4 className='text-center mb-4'>Your files</h4>

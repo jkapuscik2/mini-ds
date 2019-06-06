@@ -7,6 +7,7 @@ import {connect} from "react-redux";
 import {fetchDevice, resetDevice} from "../../actions/deviceActions"
 import {Error} from "../alerts";
 import {HOME_URL, UPDATE_DEVICE_URL} from "../../routes";
+import FilePreview from "../files/FilePreview";
 
 class Device extends React.Component {
 
@@ -58,6 +59,16 @@ class Device extends React.Component {
                                             <li className="list-group-item list-group-item-action">
                                                 Device up to date: {this.props.device.is_updated ? "No" : "Yes"}
                                             </li>
+                                            {this.props.device.file
+                                                ?
+                                                <li className="list-group-item list-group-item-action">
+                                                    Dodany plik
+                                                    <div className='col-12 col-xl-4 my-5'>
+                                                        <FilePreview file={this.props.device.file}/>
+                                                    </div>
+                                                </li>
+                                                : ""
+                                            }
                                         </ul>
                                     </div>
                                 </div>

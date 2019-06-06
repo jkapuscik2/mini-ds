@@ -69,22 +69,24 @@ class Firebase {
             .where(app.firestore.FieldPath.documentId(), '==', deviceUid)
     }
 
-    createDevice = (name, description) => {
+    createDevice = (name, description, file) => {
         return this.db.collection(DEVICES_COLLECTION).add({
             name: name,
             description: description,
             user_uid: this.auth.currentUser.uid,
             date_created: app.firestore.FieldValue.serverTimestamp(),
             is_updated: true,
-            last_update: app.firestore.FieldValue.serverTimestamp()
+            last_update: app.firestore.FieldValue.serverTimestamp(),
+            file: file
         })
     }
 
-    updateDevice = async (name, description, uid) => {
+    updateDevice = async (name, description, uid, file) => {
         return this.db.collection(DEVICES_COLLECTION).doc(uid).update({
             name: name,
             description: description,
-            last_update: app.firestore.FieldValue.serverTimestamp()
+            last_update: app.firestore.FieldValue.serverTimestamp(),
+            file: file
         })
     }
 

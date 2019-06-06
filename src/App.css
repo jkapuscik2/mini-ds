@@ -182,3 +182,8 @@ input:focus ~ .highlight {
   border-radius: 50%;
   z-index: 9;
 }
+
+.carousel-slider {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}

@@ -1,4 +1,5 @@
 import {ADD_FILE, ADDING_FILE, ADDED_FILE, RESET_FILE, REMOVED_FILE} from "../actionTypes";
+import {IMG_TYPES, VIDEO_TYPES} from "../config/files";
 
 const formatBytes = (bytes) => {
     const k = 1024;
@@ -8,7 +9,7 @@ const formatBytes = (bytes) => {
     return parseFloat((bytes / Math.pow(k, i))) + ' ' + sizes[i];
 }
 
-const ALLOWED_FILE_TYPE = ['image/jpg', 'image/jpeg', 'image/png', 'video/mp4', 'video/webm']
+const ALLOWED_FILE_TYPE = [...IMG_TYPES, ...VIDEO_TYPES]
 const MAX_FILE_SIZE = 15 * 1024 * 1024; // 15MB
 const VALIDATION_ERROR = `Wrong file type. Only files under ${formatBytes(MAX_FILE_SIZE)} are accepted and of following types: ${ALLOWED_FILE_TYPE.map((type) => (type))}`
 const SUCCESS_MSG = "File was uploaded correctly"
