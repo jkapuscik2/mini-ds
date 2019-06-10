@@ -27,9 +27,12 @@ service cloud.firestore {
 Storage
 ```
 service firebase.storage {
-  match /b/{bucket}/o {    
+  match /b/{bucket}/o {
     match /user/{userId}/{allPaths=**} {
-      allow read, write: if request.auth.uid == userId;
+      allow read: if request.auth.uid == userId;
+      allow write: if request.resource.size < 15 * 1024 * 1024
+      	&& request.auth != null
+      	&& request.resource.contentType.matches('image/jpg|image/jpeg|image/png|video/mp4|video/webm')
     }
   }
 }

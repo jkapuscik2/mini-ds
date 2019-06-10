@@ -21,7 +21,7 @@ class FilesCarusel extends React.Component {
     getFileIdx = () => {
         if (this.props.file) {
             for (let fileIdx in this.props.files) {
-                if (this.props.files[fileIdx].uid == this.props.file.uid) {
+                if (this.props.files[fileIdx].uid === this.props.file.uid) {
                     return parseInt(fileIdx)
                 }
             }

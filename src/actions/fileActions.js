@@ -58,6 +58,13 @@ export const addFile = (file, fbInstance) => {
                             }
                         })
                     })
+                }).catch((error) => {
+                    dispatch({
+                        type: ADDED_FILE,
+                        payload: {
+                            error: error.message
+                        }
+                    })
                 });
             });
         } else {
