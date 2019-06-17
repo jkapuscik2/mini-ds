@@ -35,46 +35,38 @@ export const addFile = (file, fbInstance) => {
                     }
                 })
             }, (error) => {
-                dispatch({
-                    type: ADDED_FILE,
-                    payload: {
-                        error: error.message
-                    }
-                })
+                dispatch(fileAddedMsg({
+                    error: error.message
+                }))
             }, () => {
                 uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
                     fbInstance.saveFileInfo(downloadURL, uploadTask.snapshot.ref.fullPath, file.type).then(() => {
-                        dispatch({
-                            type: ADDED_FILE,
-                            payload: {
-                                success: SUCCESS_MSG
-                            }
-                        })
+                        dispatch(fileAddedMsg({
+                            success: SUCCESS_MSG
+                        }))
                     }).catch((error) => {
-                        dispatch({
-                            type: ADDED_FILE,
-                            payload: {
-                                error: error.message
-                            }
-                        })
+                        dispatch(fileAddedMsg({
+                            error: error.message
+                        }))
                     })
                 }).catch((error) => {
-                    dispatch({
-                        type: ADDED_FILE,
-                        payload: {
-                            error: error.message
-                        }
-                    })
+                    dispatch(fileAddedMsg({
+                        error: error.message
+                    }))
                 });
             });
         } else {
-            dispatch({
-                type: ADDED_FILE,
-                payload: {
-                    error: VALIDATION_ERROR
-                }
-            })
+            dispatch(fileAddedMsg({
+                error: VALIDATION_ERROR
+            }))
         }
+    }
+}
+
+const fileAddedMsg = (payload) => {
+    return {
+        type: ADDED_FILE,
+        payload: payload
     }
 }
 

@@ -1,5 +1,4 @@
 import 'firebase/auth';
-import 'firebase/database';
 import 'firebase/firestore';
 import 'firebase/storage';
 import app from 'firebase/app';
@@ -18,14 +17,16 @@ class Firebase {
         this.auth = app.auth();
     }
 
-    registerEmail = (email, password) =>
-        this.auth.createUserWithEmailAndPassword(email, password);
+    registerEmail = (email, password) => {
+        return this.auth.createUserWithEmailAndPassword(email, password);
+    }
 
-    loginEmail = (email, password) =>
-        this.auth.signInWithEmailAndPassword(email, password);
+    loginEmail = (email, password) => {
+        return this.auth.signInWithEmailAndPassword(email, password);
+    }
 
-    authUserListener = (login, fallback) =>
-        this.auth.onAuthStateChanged(authUser => {
+    authUserListener = (login, fallback) => {
+        return this.auth.onAuthStateChanged(authUser => {
 
             if (authUser) {
                 authUser = {
@@ -40,11 +41,15 @@ class Firebase {
                 fallback();
             }
         });
+    }
 
-    logOut = () => this.auth.signOut();
+    logOut = () => {
+        return this.auth.signOut();
+    }
 
-    recoverPassword = (email) =>
-        this.auth.sendPasswordResetEmail(email)
+    recoverPassword = (email) => {
+        return this.auth.sendPasswordResetEmail(email)
+    }
 
     reautenticate = (email, password) => {
         const credential = app.auth.EmailAuthProvider.credential(
@@ -55,8 +60,9 @@ class Firebase {
         return this.auth.currentUser.reauthenticateWithCredential(credential)
     }
 
-    changePassword = (newPassword) =>
-        this.auth.currentUser.updatePassword(newPassword);
+    changePassword = (newPassword) => {
+        return this.auth.currentUser.updatePassword(newPassword);
+    }
 
     fetchDevices = () => {
         return this.db.collection(DEVICES_COLLECTION)
