@@ -23,7 +23,7 @@ import RegisterForm from "./components/signup/RegisterForm";
 import UpdateDevice from "./components/devices/UpdateDevice";
 import PasswordRecovery from "./components/signin/PasswordRecovery";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-import changePasswordForm from "./components/changePassword/changePasswordForm";
+import ChangePasswordForm from "./components/changePassword/ChangePasswordForm";
 
 class App extends React.Component {
 
@@ -36,7 +36,7 @@ class App extends React.Component {
                     <Route exact path={`${UPDATE_DEVICE_URL}:uid`} component={UpdateDevice}/>
                     <Route exact path={ADD_DEVICE_URL} component={AddDevice}/>
                     <Route exact path={FILES_URL} component={Files}/>
-                    <Route exact path={CHANGE_PASSWORD_URL} component={changePasswordForm}/>
+                    <Route exact path={CHANGE_PASSWORD_URL} component={ChangePasswordForm}/>
                     <Route exact path={REGISTER_URL} component={RegisterForm}/>
                     <Route exact path={PASSWORD_RECOVERY_URL} component={PasswordRecovery}/>
                     <Route component={NotFound}/>

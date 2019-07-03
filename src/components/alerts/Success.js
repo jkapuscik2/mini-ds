@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Success = ({success}) => (
     (success) ?
@@ -7,5 +8,9 @@ const Success = ({success}) => (
         </div>
         : ""
 );
+
+Success.propTypes = {
+    success: PropTypes.string
+}
 
 export default Success

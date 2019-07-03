@@ -3,6 +3,7 @@ import {PASSWORD_RECOVERY_URL, REGISTER_URL} from "../../routes";
 import {Link} from "react-router-dom";
 import withAuthentication from "../auth/withAuthentication";
 import Error from "../alerts/Error"
+import PropTypes from "prop-types"
 
 const INITIAL_STATE = {
     "email": "",
@@ -85,6 +86,12 @@ class LoginForm extends React.Component {
             </>
         )
     }
+}
+
+LoginForm.propTypes = {
+    firebase: PropTypes.shape({
+        loginEmail: PropTypes.func.isRequired
+    })
 }
 
 export default withAuthentication(LoginForm)

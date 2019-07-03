@@ -4,6 +4,7 @@ import {HOME_URL} from "../../routes";
 import {Error} from "../alerts";
 import Loader from "../Loader";
 import FilesCarusel from "../files/FilesCarusel";
+import PropTypes from "prop-types"
 
 class DeviceForm extends React.Component {
 
@@ -133,5 +134,14 @@ class DeviceForm extends React.Component {
     }
 }
 
+DeviceForm.propTypes = {
+    isNewRecord: PropTypes.bool.isRequired,
+    device: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        uid: PropTypes.string.isRequired,
+        file: PropTypes.object
+    })
+}
 
 export default DeviceForm

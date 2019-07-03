@@ -4,7 +4,7 @@ const INITIAL_STATE = {
     inProgress: false,
     progress: 0,
     error: null,
-    success: false
+    success: null
 }
 
 const file = (state = INITIAL_STATE, action) => {
@@ -15,7 +15,7 @@ const file = (state = INITIAL_STATE, action) => {
                 inProgress: true,
                 progress: 0,
                 error: null,
-                success: false
+                success: null
             }
         }
         case ADDING_FILE: {

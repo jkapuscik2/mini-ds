@@ -2,6 +2,7 @@ import React from "react"
 import {NavLink} from "react-router-dom";
 import {CHANGE_PASSWORD_URL, FILES_URL, HOME_URL} from "../../routes";
 import withAuthentication from "../auth/withAuthentication";
+import PropTypes from 'prop-types';
 
 class MainMenu extends React.Component {
 
@@ -76,6 +77,12 @@ class MainMenu extends React.Component {
             </nav>
         )
     }
+}
+
+MainMenu.propTypes = {
+    firebase: PropTypes.shape({
+        logOut: PropTypes.func.isRequired
+    }).isRequired
 }
 
 export default withAuthentication(MainMenu)

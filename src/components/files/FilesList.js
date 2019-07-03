@@ -5,6 +5,7 @@ import {fetchFiles} from "../../actions/filesActions";
 import {compose} from "recompose"
 import {withFirebase} from "../firebase";
 import FileItem from "./FileItem";
+import PropTypes from "prop-types"
 
 class FilesList extends React.Component {
 
@@ -30,6 +31,18 @@ class FilesList extends React.Component {
             </>
         )
     }
+}
+
+FilesList.propTypes = {
+    items: PropTypes.arrayOf(
+        PropTypes.shape({
+            uid: PropTypes.string.isRequired
+        })
+    ),
+    inProgress: PropTypes.bool.isRequired,
+    error: PropTypes.string,
+    fetchFiles: PropTypes.func.isRequired,
+
 }
 
 const mapStateToProps = (state) => {

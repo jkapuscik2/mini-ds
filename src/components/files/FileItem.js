@@ -4,7 +4,7 @@ import {removeFile} from "../../actions/fileActions";
 import {connect} from "react-redux";
 import {withFirebase} from "../firebase";
 import FilePreview from "./FilePreview";
-
+import PropTypes from "prop-types"
 
 class FileItem extends React.Component {
 
@@ -22,6 +22,12 @@ class FileItem extends React.Component {
             </div>
         )
     }
+}
+
+FileItem.propTypes = {
+    removeFile: PropTypes.func.isRequired,
+    file: PropTypes.object.isRequired,
+    firebase: PropTypes.object.isRequired,
 }
 
 const mapActionsToDispatch = (dispatch) => {

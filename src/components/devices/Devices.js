@@ -9,6 +9,7 @@ import {fetchDevices} from "../../actions/devicesActions"
 import DeviceRow from "./DeviceRow";
 import Loader from "../Loader";
 import {Error} from "../alerts";
+import PropTypes from "prop-types"
 
 class Devices extends React.Component {
 
@@ -59,6 +60,14 @@ class Devices extends React.Component {
             </div>
         )
     }
+}
+
+Devices.propTypes = {
+    firebase: PropTypes.object.isRequired,
+    onFetchDevices: PropTypes.func.isRequired,
+    items: PropTypes.array,
+    error: PropTypes.string,
+    inProgress: PropTypes.bool.isRequired
 }
 
 const mapStateToProps = (state) => {

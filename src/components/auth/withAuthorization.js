@@ -4,6 +4,7 @@ import {compose} from 'recompose';
 import {withFirebase} from '../firebase';
 import {HOME_URL} from "../../routes";
 import LoginForm from "../signin/LoginForm";
+import PropTypes from 'prop-types';
 
 const withAuthorization = Component => {
 
@@ -28,6 +29,13 @@ const withAuthorization = Component => {
                 <Component {...this.props} />
             ) : <LoginForm/>;
         }
+    }
+
+    WithAuthorization.propTypes = {
+        authUser: PropTypes.object,
+        firebase: PropTypes.shape({
+            authUserListener: PropTypes.func.isRequired
+        }).isRequired
     }
 
     const mapStateToProps = state => ({

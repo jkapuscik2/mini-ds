@@ -8,6 +8,7 @@ import {addFile, resetFile} from "../../actions/fileActions";
 import ProgressBar from "../ProgressBar";
 import {Error, Success} from "../alerts";
 import FilesList from "./FilesList";
+import PropTypes from "prop-types"
 
 class Files extends React.Component {
 
@@ -73,6 +74,16 @@ class Files extends React.Component {
             </div>
         )
     }
+}
+
+Files.propTypes = {
+    inProgress: PropTypes.bool,
+    progress: PropTypes.number,
+    error: PropTypes.string,
+    success: PropTypes.string,
+    addFile: PropTypes.func.isRequired,
+    resetFile: PropTypes.func.isRequired,
+    firebase: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {

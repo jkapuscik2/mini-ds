@@ -3,6 +3,7 @@ import withLoggedInMenu from "../menu/withLoggedInMenu"
 import {Error, Success} from "../alerts"
 import {connect} from "react-redux";
 import {compose} from "recompose"
+import PropTypes from "prop-types"
 
 const INITIAL_STATE = {
     "currentPassword": "",
@@ -20,7 +21,7 @@ const SUCCESS_MSGS = {
     "CHANGE_SUCCESS": "Password was changed"
 }
 
-class changePasswordForm extends React.Component {
+class ChangePasswordForm extends React.Component {
 
     state = {
         ...INITIAL_STATE
@@ -144,6 +145,13 @@ class changePasswordForm extends React.Component {
     }
 }
 
+ChangePasswordForm.propTypes = {
+    email: PropTypes.string,
+    firebase: PropTypes.shape({
+        changePassword: PropTypes.func.isRequired
+    })
+}
+
 const mapStateToProps = (state) => {
     return {
         "email": state.user.auth.email
@@ -153,4 +161,4 @@ const mapStateToProps = (state) => {
 export default compose(
     withLoggedInMenu,
     connect(mapStateToProps)
-)(changePasswordForm)
+)(ChangePasswordForm)

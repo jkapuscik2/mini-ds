@@ -7,6 +7,7 @@ import Loader from "./FilesList";
 import FilePreview from "./FilePreview";
 import {Carousel} from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
+import PropTypes from "prop-types"
 
 class FilesCarusel extends React.Component {
 
@@ -59,6 +60,21 @@ class FilesCarusel extends React.Component {
             </div>
         )
     }
+}
+
+FilesCarusel.propTypes = {
+    files: PropTypes.arrayOf(
+        PropTypes.shape({
+            uid: PropTypes.string.isRequired
+        })
+    ),
+    file: PropTypes.shape({
+        uid: PropTypes.string.isRequired
+    }),
+    inProgress: PropTypes.bool,
+    error: PropTypes.string,
+    fetchFiles: PropTypes.func.isRequired,
+    firebase: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => {

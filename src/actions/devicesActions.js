@@ -6,7 +6,7 @@ export const fetchDevices = (fbInstance) => {
             type: FETCH_DEVICES
         })
 
-        fbInstance.fetchDevices(fbInstance).onSnapshot(snapshot => {
+        fbInstance.fetchDevices().onSnapshot(snapshot => {
                 if (snapshot.size) {
                     let items = [];
                     snapshot.forEach(doc =>

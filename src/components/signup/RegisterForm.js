@@ -3,6 +3,7 @@ import {HOME_URL, PASSWORD_RECOVERY_URL} from "../../routes";
 import {Link} from "react-router-dom";
 import withAuthentication from "../auth/withAuthentication";
 import Error from "../alerts/Error"
+import PropTypes from "prop-types"
 
 const ERROR_MSGS = {
     "SAME_PASSWORDS": "Passwords do not match"
@@ -111,6 +112,12 @@ class RegisterForm extends React.Component {
             </form>
         )
     }
+}
+
+RegisterForm.propTypes = {
+    firebase: PropTypes.shape({
+        registerEmail: PropTypes.func.isRequired
+    })
 }
 
 export default withAuthentication(RegisterForm)

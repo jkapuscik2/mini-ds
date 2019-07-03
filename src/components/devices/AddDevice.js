@@ -2,6 +2,7 @@ import React from 'react'
 import DeviceForm from "./DeviceForm";
 import withLoggedInMenu from "../menu/withLoggedInMenu";
 import {compose} from "recompose";
+import PropTypes from "prop-types"
 
 class AddDevice extends React.Component {
 
@@ -13,6 +14,10 @@ class AddDevice extends React.Component {
             />
         )
     }
+}
+
+AddDevice.propTypes = {
+    firebase: PropTypes.object.isRequired
 }
 
 export default compose(

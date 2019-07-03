@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {compose} from 'recompose';
 import {withFirebase} from "../firebase"
 import {authUser} from "../../actions/userActions"
+import PropTypes from 'prop-types';
 
 const withAuthentication = Component => {
 
@@ -26,6 +27,13 @@ const withAuthentication = Component => {
         render() {
             return <Component {...this.props} />;
         }
+    }
+
+    WithAuthentication.propTypes = {
+        firebase: PropTypes.shape({
+            authUserListener: PropTypes.func.isRequired
+        }).isRequired,
+        setAuthUser: PropTypes.func.isRequired
     }
 
     const mapDispatchToProps = dispatch => ({

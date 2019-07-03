@@ -5,6 +5,7 @@ import {DEVICE_URL, UPDATE_DEVICE_URL} from "../../routes";
 import {removeDevice} from "../../actions/devicesActions";
 import {compose} from "recompose";
 import {withFirebase} from "../firebase";
+import PropTypes from "prop-types"
 
 const MAX_CONTENT_SIZE = 15
 
@@ -42,6 +43,16 @@ class DeviceRow extends React.Component {
             </tr>
         )
     }
+}
+
+DeviceRow.propTypes = {
+    firebase: PropTypes.object.isRequired,
+    idx: PropTypes.number.isRequired,
+    device: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        uid: PropTypes.string.isRequired
+    }).isRequired
 }
 
 const mapActionsToDispatch = (dispatch) => {

@@ -4,6 +4,7 @@ import {Link} from "react-router-dom";
 import Error from "../alerts/Error"
 import Success from "../alerts/Success"
 import {withFirebase} from "../firebase"
+import PropTypes from "prop-types"
 
 const EMAIL_SUCCESS_MSG = "Email with instructions was sent"
 
@@ -12,7 +13,7 @@ class PasswordRecovery extends React.Component {
     state = {
         "email": "",
         "error": null,
-        "emailSuccess": false
+        "emailSuccess": null
     }
 
     handleChange = (e) => {
@@ -37,7 +38,7 @@ class PasswordRecovery extends React.Component {
             .catch(error => {
                 this.setState({
                         error: error.message,
-                        emailSuccess: false
+                    emailSuccess: null
                     }
                 );
             });
@@ -75,6 +76,12 @@ class PasswordRecovery extends React.Component {
             </form>
         )
     }
+}
+
+PasswordRecovery.propTypes = {
+    firebase: PropTypes.shape({
+        recoverPassword: PropTypes.func.isRequired
+    })
 }
 
 export default withFirebase(PasswordRecovery)

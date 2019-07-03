@@ -8,6 +8,7 @@ import {fetchDevice, resetDevice} from "../../actions/deviceActions"
 import {Error} from "../alerts";
 import {HOME_URL, UPDATE_DEVICE_URL} from "../../routes";
 import FilePreview from "../files/FilePreview";
+import PropTypes from "prop-types"
 
 class Device extends React.Component {
 
@@ -97,6 +98,31 @@ class Device extends React.Component {
             </div>
         )
     }
+}
+
+Device.propTypes = {
+    inProgress: PropTypes.bool,
+    error: PropTypes.bool,
+    onFetchDevice: PropTypes.func.isRequired,
+    resetDevice: PropTypes.func.isRequired,
+    match: PropTypes.shape({
+        params: PropTypes.shape({
+            uid: PropTypes.string.isRequired
+        })
+    }),
+    device: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        description: PropTypes.string.isRequired,
+        uid: PropTypes.string.isRequired,
+        is_updated: PropTypes.bool.isRequired,
+        date_created: PropTypes.shape({
+            seconds: PropTypes.number.isRequired
+        }).isRequired,
+        last_update: PropTypes.shape({
+            seconds: PropTypes.number.isRequired
+        }).isRequired,
+        file: PropTypes.object
+    })
 }
 
 const mapStateToProps = (state) => {
