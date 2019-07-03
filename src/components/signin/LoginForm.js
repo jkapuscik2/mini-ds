@@ -41,41 +41,48 @@ class LoginForm extends React.Component {
 
     render() {
         return (
-            <form className='col-12 col-xl-4' onSubmit={this.onLogin}>
-                <h4 className='text-center'>Login</h4>
-                <div className="group">
-                    <input onChange={this.handleChange}
-                           className={this.state.email ? "used" : ""}
-                           name='email'
-                           id='email'
-                           type="email"/>
-                    <span className="highlight"></span>
-                    <span className="bar"></span>
-                    <label>Email</label>
-                </div>
-                <div className="group">
-                    <input onChange={this.handleChange}
-                           className={this.state.password ? "used" : ""}
-                           name='password'
-                           id='password'
-                           type="password"/>
-                    <span className="highlight"></span>
-                    <span className="bar"></span>
-                    <label>Password</label>
-                </div>
-                <button type="submit" className="button buttonBlue">
-                    Login
-                </button>
+            <>
+                <nav className="navbar navbar-expand navbar-light bg-light">
+                    <div className='text-center col-12'>
+                        <img className='img img-responsive col-xl-2 col-4 img-center' alt='Logo' src='/logo.png'/>
+                    </div>
+                </nav>
+                <form className='col-12 col-xl-4' onSubmit={this.onLogin}>
+                    <h4 className='text-center'>Login</h4>
+                    <div className="group">
+                        <input onChange={this.handleChange}
+                               className={this.state.email ? "used" : ""}
+                               name='email'
+                               id='email'
+                               type="email"/>
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label>Email</label>
+                    </div>
+                    <div className="group">
+                        <input onChange={this.handleChange}
+                               className={this.state.password ? "used" : ""}
+                               name='password'
+                               id='password'
+                               type="password"/>
+                        <span className="highlight"></span>
+                        <span className="bar"></span>
+                        <label>Password</label>
+                    </div>
+                    <button type="submit" className="button buttonBlue">
+                        Login
+                    </button>
 
-                <Error error={this.state.error}/>
+                    <Error error={this.state.error}/>
 
-                <div>
-                    <Link to={REGISTER_URL}>Register</Link>
-                </div>
-                <div>
-                    <Link to={PASSWORD_RECOVERY_URL}>Password recovery</Link>
-                </div>
-            </form>
+                    <div>
+                        <Link to={REGISTER_URL}>Register</Link>
+                    </div>
+                    <div>
+                        <Link to={PASSWORD_RECOVERY_URL}>Password recovery</Link>
+                    </div>
+                </form>
+            </>
         )
     }
 }
