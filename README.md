@@ -10,7 +10,7 @@ Features:
 
 Idea was to learn and use some Redux
 
-Sample app is available at: [URL](https://firebase.storage/mini-ds.appspot.com)
+Sample app is available at: [URL](https://mini-ds.firebaseapp.com/)
 
 API endpoints:
  - [updates pulling](https://us-central1-mini-ds.cloudfunctions.net/isUpdated)
