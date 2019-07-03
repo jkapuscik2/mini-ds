@@ -10,6 +10,6 @@ Features:
 
 Idea was to learn and use some Redux
 
-Sample app is available at: firebase.storage/mini-ds.appspot.com
+Sample app is available at: [URL](firebase.storage/mini-ds.appspot.com)
 
 
