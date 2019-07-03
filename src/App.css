@@ -181,6 +181,7 @@ input:focus ~ .highlight {
   padding: 0.8rem;
   border-radius: 50%;
   z-index: 9;
+  cursor: pointer;
 }
 
 .carousel-slider {

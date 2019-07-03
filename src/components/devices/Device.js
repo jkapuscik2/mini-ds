@@ -62,7 +62,7 @@ class Device extends React.Component {
                                             {this.props.device.file
                                                 ?
                                                 <li className="list-group-item list-group-item-action">
-                                                    Dodany plik
+                                                    Added file:
                                                     <div className='col-12 col-xl-4 my-5'>
                                                         <FilePreview file={this.props.device.file}/>
                                                     </div>
