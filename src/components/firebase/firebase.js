@@ -92,6 +92,7 @@ class Firebase {
             name: name,
             description: description,
             last_update: app.firestore.FieldValue.serverTimestamp(),
+            is_updated: true,
             file: file
         })
     }

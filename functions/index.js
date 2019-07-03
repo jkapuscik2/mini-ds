@@ -25,7 +25,13 @@ exports.getFile = functions.https.onRequest(async (request, response) => {
 
         if (device) {
             await markAsUpdated(deviceUid)
-            return response.status(200).send(device.file.url)
+
+            if (device.file) {
+                return response.status(200).send(device.file.url)
+            } else {
+                return response.status(400).send({error: "No file found for the device"})
+            }
+
         }
     }
     response.status(404).send({error: "Device not found"})
@@ -44,7 +50,6 @@ const getDevice = async (uid) => {
 const markAsUpdated = async (uid) => {
     return await db.collection("devices").doc(uid).update(
         {
-            is_updated: true
+            is_updated: false
         });
 }
-
