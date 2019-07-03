@@ -12,4 +12,7 @@ Idea was to learn and use some Redux
 
 Sample app is available at: [URL](firebase.storage/mini-ds.appspot.com)
 
+API endpoints:
+ - [updates pulling](https://us-central1-mini-ds.cloudfunctions.net/isUpdated)
+ - [file download](https://us-central1-mini-ds.cloudfunctions.net/getFile)
 
